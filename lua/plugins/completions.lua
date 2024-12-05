@@ -50,6 +50,7 @@ return {
         { name = "luasnip" },
         { name = "buffer" },
         { name = "path" },
+        { name = "dadbod" },
       }),
       formatting = {
         format = highlight.format

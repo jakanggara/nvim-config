@@ -3,7 +3,6 @@
 local servers = {
   "jsonls",
   "yamlls",
-  "sqls",
   "gopls",
   "lua_ls",
   "ts_ls",
