@@ -5,8 +5,18 @@ return {
     "folke/tokyonight.nvim",
     lazy = false,
     priority = 1000,
-    config = function()
+    opts = {
+      transparent = true,
+      styles = {
+        sidebars = "transparent",
+        floats = "transparent",
+      }
+    },
+    config = function(_, opts)
       vim.cmd.colorscheme("tokyonight")
+
+      local tn = require("tokyonight")
+      tn.setup(opts)
     end,
   },
   -- Status line
@@ -28,4 +38,3 @@ return {
     opts = {},
   },
 }
-

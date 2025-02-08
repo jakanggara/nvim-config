@@ -323,7 +323,12 @@ return {
           }
         }
       })
-    end
+    end,
+    keys = {
+      { "<leader>nc", "<cmd>Neotree close<cr>",                  desc = "Close NeoTree" },
+      { "<leader>nt", "<cmd>Neotree toggle<cr>",                 desc = "Toggle NeoTree" },
+      { "<leader>nl", "<cmd>Neotree filesystem reveal left<cr>", desc = "Reveal NeoTree" },
+    }
   },
   -- Fuzzy finder
   {

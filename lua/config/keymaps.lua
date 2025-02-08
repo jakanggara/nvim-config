@@ -15,3 +15,11 @@ map("n", "<C-l>", "<C-w>l", { desc = "Move to right window" })
 map("v", "<", "<gv")
 map("v", ">", ">gv")
 
+-- Better searcher
+map("n", "*", "*``")
+map("n", "#", "#``")
+map("n", "n", "nzzzv")
+map("n", "N", "Nzzzv")
+
+-- replace using highlighted text
+map("n", "gR", "hy:%s/<C-r>h//gc<left><left><left>", { desc = "Replace using highlighted text" })
