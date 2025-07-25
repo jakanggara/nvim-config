@@ -23,3 +23,4 @@ map("n", "N", "Nzzzv")
 
 -- replace using highlighted text
 map("n", "gR", "hy:%s/<C-r>h//gc<left><left><left>", { desc = "Replace using highlighted text" })
+

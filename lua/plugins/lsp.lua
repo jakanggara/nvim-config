@@ -14,16 +14,22 @@ local servers = {
 
 return {
   {
+    "williamboman/mason.nvim",
+    cmd = "Mason",
+    keys = { { "<leader>cm", "<cmd>Mason<cr>", desc = "Mason" } },
+    config = true,
+  },
+  {
     "neovim/nvim-lspconfig",
     event = { "BufReadPre", "BufNewFile" },
     dependencies = {
-      "mason.nvim",
+      "williamboman/mason.nvim", -- Fixed: use full plugin name
       "williamboman/mason-lspconfig.nvim",
-      "hrsh7th/cmp-nvim-lsp",
+      "saghen/blink.cmp",
     },
     config = function()
       local lspconfig = require("lspconfig")
-      local capabilities = require("cmp_nvim_lsp").default_capabilities()
+      local capabilities = require("blink.cmp").get_lsp_capabilities()
       local masonlsp = require("mason-lspconfig")
 
       -- Keymaps
@@ -31,11 +37,9 @@ return {
         group = vim.api.nvim_create_augroup("UserLspConfig", {}),
         callback = function(ev)
           vim.bo[ev.buf].omnifunc = "v:lua.vim.lsp.omnifunc"
-
           local map = function(mode, l, r, desc)
             vim.keymap.set(mode, l, r, { buffer = ev.buf, desc = desc })
           end
-
           map("n", "gD", vim.lsp.buf.declaration, "Go to Declaration")
           map("n", "gd", vim.lsp.buf.definition, "Go to Definition")
           map("n", "K", vim.lsp.buf.hover, "Hover Information")
@@ -50,7 +54,6 @@ return {
           map("n", "<leader>rn", vim.lsp.buf.rename, "Rename")
           map("n", "<leader>ca", vim.lsp.buf.code_action, "Code Action")
           map("n", "gr", vim.lsp.buf.references, "Go to References")
-
           -- Diagnostic key mappings
           map("n", "[d", vim.diagnostic.goto_prev, "Previous Diagnostic")
           map("n", "]d", vim.diagnostic.goto_next, "Next Diagnostic")
@@ -60,24 +63,15 @@ return {
 
       masonlsp.setup({
         ensure_installed = servers,
-        automatic_instalation = true
+        automatic_installation = true
       })
 
-      -- Server configurations
-      masonlsp.setup_handlers({
-        function(server_name)
-          lspconfig[server_name].setup({
-            capabilities = capabilities,
-          })
-        end,
-      })
+      -- Alternative approach: manually configure each server
+      for _, server in pairs(servers) do
+        lspconfig[server].setup({
+          capabilities = capabilities,
+        })
+      end
     end,
-  },
-  {
-    "williamboman/mason.nvim",
-    cmd = "Mason",
-    keys = { { "<leader>cm", "<cmd>Mason<cr>", desc = "Mason" } },
-    config = true,
-    ens
   },
 }
