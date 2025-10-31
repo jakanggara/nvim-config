@@ -23,14 +23,13 @@ return {
     "neovim/nvim-lspconfig",
     event = { "BufReadPre", "BufNewFile" },
     dependencies = {
-      "williamboman/mason.nvim", -- Fixed: use full plugin name
+      "williamboman/mason.nvim",
       "williamboman/mason-lspconfig.nvim",
-      "saghen/blink.cmp",
+      "hrsh7th/cmp-nvim-lsp", -- Use nvim-cmp for LSP capabilities
     },
     config = function()
-      local lspconfig = require("lspconfig")
-      local capabilities = require("blink.cmp").get_lsp_capabilities()
-      local masonlsp = require("mason-lspconfig")
+      -- Get capabilities from nvim-cmp for LSP
+      local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
       -- Keymaps
       vim.api.nvim_create_autocmd("LspAttach", {
@@ -61,17 +60,19 @@ return {
         end,
       })
 
-      masonlsp.setup({
+      -- Setup mason-lspconfig with handlers (fixes double LSP trigger)
+      require("mason-lspconfig").setup({
         ensure_installed = servers,
-        automatic_installation = true
+        automatic_installation = true,
+        handlers = {
+          -- Default handler - applies to all servers without a custom handler
+          function(server_name)
+            require("lspconfig")[server_name].setup({
+              capabilities = capabilities,
+            })
+          end,
+        },
       })
-
-      -- Alternative approach: manually configure each server
-      for _, server in pairs(servers) do
-        lspconfig[server].setup({
-          capabilities = capabilities,
-        })
-      end
     end,
   },
 }
