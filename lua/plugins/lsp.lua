@@ -10,6 +10,7 @@ local servers = {
   "biome",
   "jdtls",
   "cssls",
+  "rust_analyzer"
 }
 
 return {
