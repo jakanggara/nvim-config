@@ -15,6 +15,8 @@ return {
         },
         highlight = { enable = true },
         indent = { enable = true },
+        -- Enable folding support for nvim-ufo
+        fold = { enable = false }, -- Let ufo handle folding, not treesitter directly
         textobjects = {
           select = {
             enable = true,

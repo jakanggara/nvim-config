@@ -8,9 +8,19 @@ return {
     event = "BufReadPost",
     opts = {
       provider_selector = function(bufnr, filetype, buftype)
-        -- Use LSP as main provider, indent as fallback
-        -- Only 2 providers are supported: [main, fallback]
-        return { "lsp", "indent" }
+        -- IMPORTANT: treesitter as fallback can throw UfoFallbackException
+        -- Always use 'indent' as the ultimate fallback - it never fails
+        -- Use treesitter as MAIN provider for files without LSP support
+        local ftMap = {
+          vim = { "treesitter", "indent" },
+          python = { "lsp", "indent" },
+          rust = { "lsp", "indent" },
+          lua = { "lsp", "indent" },
+          javascript = { "lsp", "indent" },
+          typescript = { "lsp", "indent" },
+          go = { "lsp", "indent" },
+        }
+        return ftMap[filetype] or { "indent", "indent" }
       end,
       -- Show fold preview when hovering over closed fold
       preview = {
