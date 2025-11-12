@@ -26,3 +26,11 @@ opt.undofile = true
 opt.swapfile = false
 opt.backup = false
 opt.updatetime = 50
+
+-- Folding
+opt.foldmethod = "expr"
+opt.foldexpr = "nvim_treesitter#foldexpr()"
+opt.foldlevel = 99
+opt.foldlevelstart = 99
+opt.foldenable = true
+opt.foldcolumn = "1"
