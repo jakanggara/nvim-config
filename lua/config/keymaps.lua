@@ -24,9 +24,7 @@ map("n", "N", "Nzzzv")
 -- replace using highlighted text
 map("n", "gR", "hy:%s/<C-r>h//gc<left><left><left>", { desc = "Replace using highlighted text" })
 
--- Folding
-map("n", "<leader>zo", "zR", { desc = "Open all folds" })
-map("n", "<leader>zc", "zM", { desc = "Close all folds" })
-map("n", "<leader>zt", "za", { desc = "Toggle fold under cursor" })
+-- Folding (additional keymaps, core ones defined in folding.lua)
+map("n", "za", "za", { desc = "Toggle fold under cursor" })
 map("n", "<leader>zp", "zMzv", { desc = "Fold all except current" })
 

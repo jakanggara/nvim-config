@@ -32,6 +32,12 @@ return {
       -- Get capabilities from nvim-cmp for LSP
       local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
+      -- Enable LSP folding range capability for nvim-ufo
+      capabilities.textDocument.foldingRange = {
+        dynamicRegistration = false,
+        lineFoldingOnly = true,
+      }
+
       -- Keymaps
       vim.api.nvim_create_autocmd("LspAttach", {
         group = vim.api.nvim_create_augroup("UserLspConfig", {}),

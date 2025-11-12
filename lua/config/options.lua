@@ -27,10 +27,5 @@ opt.swapfile = false
 opt.backup = false
 opt.updatetime = 50
 
--- Folding
-opt.foldmethod = "expr"
-opt.foldexpr = "nvim_treesitter#foldexpr()"
-opt.foldlevel = 99
-opt.foldlevelstart = 99
-opt.foldenable = true
-opt.foldcolumn = "1"
+-- Folding (managed by nvim-ufo plugin)
+-- Basic settings, ufo will override with its own provider
