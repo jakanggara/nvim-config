@@ -8,8 +8,9 @@ return {
     event = "BufReadPost",
     opts = {
       provider_selector = function(bufnr, filetype, buftype)
-        -- Use LSP -> Treesitter -> indent as fallback chain
-        return { "lsp", "treesitter", "indent" }
+        -- Use LSP as main provider, indent as fallback
+        -- Only 2 providers are supported: [main, fallback]
+        return { "lsp", "indent" }
       end,
       -- Show fold preview when hovering over closed fold
       preview = {
