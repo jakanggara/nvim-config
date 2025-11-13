@@ -79,6 +79,9 @@ return {
       vim.o.foldclose = ""  -- Don't auto-close folds (default: "")
       vim.o.foldopen = "block,hor,mark,percent,quickfix,search,tag,undo"  -- When to auto-open
 
+      -- Disable automatic view saving/loading which can interfere with fold state
+      vim.o.viewoptions = "cursor,curdir"  -- Don't save folds in views
+
       -- Using ufo provider need remap `zR` and `zM`
       vim.keymap.set("n", "zR", require("ufo").openAllFolds, { desc = "Open all folds" })
       vim.keymap.set("n", "zM", require("ufo").closeAllFolds, { desc = "Close all folds" })
