@@ -75,6 +75,10 @@ return {
       vim.o.foldlevelstart = 99
       vim.o.foldenable = true
 
+      -- Prevent auto-closing folds when moving between windows/buffers
+      vim.o.foldclose = ""  -- Don't auto-close folds (default: "")
+      vim.o.foldopen = "block,hor,mark,percent,quickfix,search,tag,undo"  -- When to auto-open
+
       -- Using ufo provider need remap `zR` and `zM`
       vim.keymap.set("n", "zR", require("ufo").openAllFolds, { desc = "Open all folds" })
       vim.keymap.set("n", "zM", require("ufo").closeAllFolds, { desc = "Close all folds" })
