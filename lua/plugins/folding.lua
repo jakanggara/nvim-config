@@ -69,6 +69,15 @@ return {
       -- Setup ufo
       require("ufo").setup(opts)
 
+      -- Disable folding for neo-tree and other special buffers
+      vim.api.nvim_create_autocmd("FileType", {
+        pattern = { "neo-tree", "neo-tree-popup", "notify", "TelescopePrompt" },
+        callback = function()
+          vim.wo.foldenable = false
+          vim.wo.foldcolumn = "0"
+        end,
+      })
+
       -- Set fold column to show fold indicators
       vim.o.foldcolumn = "1"
       vim.o.foldlevel = 99
