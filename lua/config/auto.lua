@@ -12,15 +12,4 @@ vim.api.nvim_create_autocmd("BufWritePre", {
   end,
 })
 
--- Restore view after write completes
-vim.api.nvim_create_autocmd("BufWritePost", {
-  callback = function(args)
-    local view = saved_views[args.buf]
-    if view then
-      vim.fn.winrestview(view)
-      saved_views[args.buf] = nil -- Clean up
-    end
-  end,
-})
-
 vim.api.nvim_set_option("clipboard", "unnamedplus")
