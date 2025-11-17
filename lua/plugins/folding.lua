@@ -5,7 +5,8 @@ return {
     dependencies = {
       "kevinhwang91/promise-async",
     },
-    event = "BufReadPost",
+    lazy = false,  -- Load immediately, not lazy
+    priority = 1000,  -- Load early, before other plugins
     opts = {
       provider_selector = function(bufnr, filetype, buftype)
         -- IMPORTANT: treesitter as fallback can throw UfoFallbackException
@@ -67,7 +68,9 @@ return {
     },
     config = function(_, opts)
       -- Setup ufo
+      print("[UFO] Loading nvim-ufo configuration...")
       require("ufo").setup(opts)
+      print("[UFO] nvim-ufo setup complete")
 
       -- Disable folding for neo-tree and other special buffers
       vim.api.nvim_create_autocmd("FileType", {
@@ -90,6 +93,8 @@ return {
 
       -- Disable automatic view saving/loading which can interfere with fold state
       vim.o.viewoptions = "cursor,curdir"  -- Don't save folds in views
+
+      print("[UFO] Fold settings applied: foldlevel=99, foldclose='', viewoptions=" .. vim.o.viewoptions)
 
       -- Using ufo provider need remap `zR` and `zM`
       vim.keymap.set("n", "zR", require("ufo").openAllFolds, { desc = "Open all folds" })
